@@ -1,6 +1,8 @@
 version: '3.6'
 
 services:
+  db:
+    image: postgres:10.3-alpine
   web:
     build: .
     volumes:
@@ -9,3 +11,7 @@ services:
     command: puma
     ports:
       - 3000:3000
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres@db
